@@ -1,21 +1,37 @@
-# next-template
+# OPTIONS-MAVERICKS
 
-A Next.js 13 template for building apps with Radix UI and Tailwind CSS.
+Ai Driven Portfolio Management tool
 
-## Usage
+## About this project
 
-```bash
-npx create-next-app -e https://github.com/shadcn/next-template
-```
+> Options Mavericks is an app that helps users mange their portfolios using AI generated hedging strategies.
+
+## Getting Started
 
 ## Features
 
-- Next.js 13 App Directory
-- Radix UI Primitives
-- Tailwind CSS
-- Icons from [Lucide](https://lucide.dev)
+- - Authentication using **NextAuth.js**
+- ORM using **Prisma**
+- Database **MongoDB**
+- Primitives **Radix UI**
+- Styles **Tailwind CSS**
+- Icons from **Lucide**(https://lucide.dev)
 - Dark mode with `next-themes`
 - Tailwind CSS class sorting, merging and linting.
+
+## Roadmap
+
+- [x] ~ authentication
+- [x] ~ subscriptions
+- [x] ~ exchanges integration
+- [x] ~ open-ai integration
+
+- [x] ~ Options Data
+- [x] ~ Market Data
+- [x] ~ News Feed
+- [x] ~ Charting
+- [x] ~ Ticker Explorer
+- [x] ~ Watchlists
 
 ## License
 
