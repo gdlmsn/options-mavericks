@@ -1,7 +1,7 @@
 import React from "react"
 
-const LearnPage = () => {
-  return <div>LearnPage</div>
+const learnPage = () => {
+  return <div>learnPage</div>
 }
 
-export default LearnPage
+export default learnPage
