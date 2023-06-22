@@ -1,4 +1,5 @@
 import {
+  Check,
   LucideProps,
   Moon,
   SunMedium,
@@ -9,6 +10,7 @@ import {
 export type Icon = LucideIcon
 
 export const Icons = {
+  check: Check,
   sun: SunMedium,
   moon: Moon,
   twitter: Twitter,

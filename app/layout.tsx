@@ -14,6 +14,13 @@ export const metadata: Metadata = {
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  keywords: ["Options", "Portfolio Management", "ai"],
+  authors: [
+    {
+      name: "@gdlmsn",
+      url: "https://twitter.com/gdlmsn",
+    },
+  ],
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
@@ -41,10 +48,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="relative flex min-h-screen flex-col">
-              <SiteHeader />
-              <div className="flex-1">{children}</div>
-            </div>
+            <SiteHeader />
+            <div className="flex-1">{children}</div>
             <TailwindIndicator />
           </ThemeProvider>
         </body>
