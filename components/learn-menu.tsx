@@ -2,9 +2,9 @@
 
 import React from "react"
 import Link from "next/link"
+import { NavItemDropDown } from "@/types"
 import { ChevronDown } from "lucide-react"
 
-import { NavItemDropDown } from "@/types/nav"
 import { cn } from "@/lib/utils"
 import {
   NavigationMenu,
