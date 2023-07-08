@@ -20,9 +20,10 @@ model User {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
-  accounts    Account[]
-  watchlists  Watchlist[]
-  watchlistId String?     @db.ObjectId
+  accounts   Account[]
+  watchlists Watchlist[]
+  portfolio  Portfolio[]
+  sessions   Session[]
 }
 
 model Account {
@@ -42,6 +43,16 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map(name: "sessions")
 }
 
 model Watchlist {
@@ -65,4 +76,61 @@ model WatchlistTicker {
   ivr         Float?
 
   watchlist Watchlist @relation(fields: [watchlistId], references: [id])
+}
+
+model Portfolio {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  account      String     @db.ObjectId
+  benchmark_id Contract   @relation(fields: [contractId], references: [id])
+  name         String
+  userId       String     @db.ObjectId
+  baseCurrency String
+  positions    Position[]
+  balance      Balance[]
+  currencies   Currency[]
+  user         User       @relation(fields: [userId], references: [id])
+  contractId   String     @db.ObjectId
+}
+
+model Balance {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  portfolioId String    @db.ObjectId
+  currency    String
+  quantity    Float
+  Portfolio   Portfolio @relation(fields: [portfolioId], references: [id])
+}
+
+model Contract {
+  id                 String @id @default(auto()) @map("_id") @db.ObjectId
+  conId              String @db.ObjectId
+  symbol             String
+  secType            String
+  exchange           String
+  currency           String
+  name               String
+  price              Float?
+  bid                Float?
+  ask                Float?
+  previousClosePrice Float?
+
+  Portfolio Portfolio[]
+  Position  Position[]
+}
+
+model Currency {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  base        String
+  currency    String
+  rate        Float
+  Portfolio   Portfolio? @relation(fields: [portfolioId], references: [id])
+  portfolioId String?    @db.ObjectId
+}
+
+model Position {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  contract_id Int?
+  Portfolio   Portfolio? @relation(fields: [portfolioId], references: [id])
+  portfolioId String?    @db.ObjectId
+  Contract    Contract?  @relation(fields: [contractId], references: [id])
+  contractId  String?    @db.ObjectId
 }
