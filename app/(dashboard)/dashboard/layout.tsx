@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation"
+import { ChevronsLeft } from "lucide-react"
 
 import { dashboardConfig } from "@/config/dashboard"
 import { getCurrentUser } from "@/lib/session"
@@ -13,7 +14,7 @@ interface DashboardLayoutProps {
 export default async function DashboardLayout({
   children,
 }: DashboardLayoutProps) {
-  const user = await getCurrentUser()
+  const { user } = await getCurrentUser()
 
   if (!user) {
     return notFound()

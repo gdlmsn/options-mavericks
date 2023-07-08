@@ -1,12 +1,15 @@
 "use client"
 
 import * as React from "react"
+import { useEffect } from "react"
 import { useSearchParams } from "next/navigation"
+import router from "next/router"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { signIn } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
+import { getCurrentUser } from "@/lib/session"
 import { cn } from "@/lib/utils"
 import { authSchema } from "@/lib/validations/auth"
 import { buttonVariants } from "@/components/ui/button"
@@ -14,6 +17,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "@/components/ui/use-toast"
 import { Icons } from "@/components/icons"
+
+import AuthProviders from "./user-auth-social-provider"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -28,8 +33,14 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     resolver: zodResolver(authSchema),
   })
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false)
   const searchParams = useSearchParams()
+  const session = useSession()
+
+  useEffect(() => {
+    if (session?.data) {
+      router.push("/dashboard")
+    }
+  }, [session])
 
   async function onSubmit(data: FormData) {
     setIsLoading(true)
@@ -71,7 +82,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect="off"
-              disabled={isLoading || isGitHubLoading}
+              disabled={isLoading}
               {...register("email")}
             />
             {errors?.email && (
@@ -98,22 +109,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           </span>
         </div>
       </div>
-      <button
-        type="button"
-        className={cn(buttonVariants({ variant: "outline" }))}
-        onClick={() => {
-          setIsGitHubLoading(true)
-          signIn("github")
-        }}
-        disabled={isLoading || isGitHubLoading}
-      >
-        {isGitHubLoading ? (
-          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          <Icons.gitHub className="mr-2 h-4 w-4" />
-        )}{" "}
-        Github
-      </button>
+      <AuthProviders />
     </div>
   )
 }

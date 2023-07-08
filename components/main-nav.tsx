@@ -4,6 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import { useSelectedLayoutSegment } from "next/navigation"
 import { MainNavItem } from "@/types"
+import { ChevronsLeft } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
@@ -18,9 +19,11 @@ interface MainNavProps {
 export function MainNav({ items, children }: MainNavProps) {
   const segment = useSelectedLayoutSegment()
   const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false)
-
+  const [showCollapsedSidebar, setShowCollapsedSidebar] =
+    React.useState<boolean>(false)
   return (
-    <div className="flex gap-6 md:gap-10">
+    <div className="flex gap-6 px-2 md:gap-10">
+      <ChevronsLeft />
       <Link href="/" className="hidden items-center space-x-2 md:flex">
         <Icons.logo />
         <span className="hidden font-bold sm:inline-block">

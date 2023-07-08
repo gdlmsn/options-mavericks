@@ -27,7 +27,7 @@ export const dashboardConfig: DashboardConfig = {
     },
     {
       title: "Watchlists",
-      href: "/watchlists",
+      href: "#",
       icon: "gem",
       hasSubmenu: true,
       subMenu: [
@@ -36,8 +36,8 @@ export const dashboardConfig: DashboardConfig = {
           href: "/watchlists/earnings",
         },
         {
-          title: "Futures",
-          href: "/watchlists/futures",
+          title: "Favourites",
+          href: "/watchlists/favourites",
         },
       ],
     },
